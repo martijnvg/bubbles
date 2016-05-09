@@ -62,7 +62,7 @@ struct Level {
 impl Level {
 
     fn new(width: f64, height: f64) -> Level {
-        println!("h={}, w={}", width, height);
+        println!("h={}, w={}", height, width);
         Level {
             width: width,
             height: height,
@@ -87,7 +87,7 @@ impl Level {
         let x = rand::thread_rng().gen_range(center - 100.0, center + 100.0);
         let speed = rand::thread_rng().gen_range(0.2, 1.0);
         let direction = rand::thread_rng().gen_range(-1.0, 1.0);
-        self.bubbles.push(Bubble::new(x, 1000.0, radius, speed, direction));
+        self.bubbles.push(Bubble::new(x, self.height - radius, radius, speed, direction));
         self
     }
 
@@ -126,7 +126,10 @@ fn main() {
                     Input::Release(key) => {
                         match key {
                             Button::Keyboard(Key::Space) => {
-                                level.add_bubble();
+                                 level.add_bubble();
+                            },
+                            Button::Keyboard(Key::Return) => {
+                                 level.add_bubble();
                             },
                             _ => {}
                         }
